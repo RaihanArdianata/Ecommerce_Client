@@ -5,7 +5,6 @@ import "bootstrap"
 import "bootstrap/dist/css/bootstrap.css"
 import "animate.css/animate.css"
 
-
 Vue.config.productionTip = false
 
 new Vue({
