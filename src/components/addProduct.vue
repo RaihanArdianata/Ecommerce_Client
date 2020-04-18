@@ -5,26 +5,35 @@
     <form @submit.prevent="addProduct">
       <div class="form-group">
         <label for="product_name">Product Name</label>
-        <input type="text" class="form-control" id="product_name" v-model="formData.product_name" />
+        <input type="text" class="form-control" id="product_name" v-model="formData.product_name" required />
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description" rows="3" v-model="formData.description"></textarea>
+        <textarea class="form-control" id="description" rows="3" v-model="formData.description" required></textarea>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-        <label for="Quantity">Quantity</label>
-        <input type="number" class="form-control" id="Quantity" v-model="formData.quantity" />
+          <label for="Quantity">Quantity</label>
+          <input type="number" min="0" class="form-control" id="Quantity" v-model="formData.quantity" required />
         </div>
         <div class="form-group col-md-6">
-        <label for="price">Price</label>
-        <input type="text" class="form-control" id="price" v-model="formData.price" />
+          <label for="price">Price</label>
+          <input type="number" min="1" class="form-control" id="price" v-model="formData.price" required />
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputState">Category</label>
+          <select id="inputState" class="form-control" v-model="formData.category" required>
+            <option value="kaos">kaos</option>
+            <option value="sepatu">sepatu</option>
+            <option value="jaket">jaket</option>
+            <option value="hoodie">hoodie</option>
+          </select>
         </div>
       </div>
       <div class="form-group">
         <div class="col">
         <label for="product_image" class="mx-2">Product Image :</label>
-        <input type="file" id="file" ref="file" multiple v-on:change="handleFileUpload" />
+        <input type="file" id="file" ref="file" multiple v-on:change="handleFileUpload" required />
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Add Product</button>
@@ -43,7 +52,8 @@ export default {
         product_image: '',
         description: '',
         price: Number(),
-        quantity: Number()
+        quantity: Number(),
+        category: null
       }
     }
   },
@@ -57,15 +67,19 @@ export default {
       formData.append('description', this.formData.description)
       formData.append('price', this.formData.price)
       formData.append('quantity', this.formData.quantity)
+      formData.append('category', this.formData.category)
+      console.log(formData)
       this.axios({
         method: 'POST',
         url: baseUrl + '/product',
         data: formData,
         headers: {
+          access_token: localStorage.access_token,
           'Content-Type': 'multipart/form-data'
         }
       })
         .then((result) => {
+          this.$store.dispatch('fetchProduct')
           this.$router.push({ name: 'allProduct' })
         })
         .catch((err) => {
