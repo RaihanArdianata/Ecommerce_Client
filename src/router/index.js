@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '*',
+    path: '/',
     name: 'admin',
     component: addProduct,
     redirect: {
@@ -24,6 +24,19 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: () => import(/* webpackChunkName: "about" */ '../views/dashBoard.vue'),
+    beforeEnter: (to, from, next) => {
+      const level = localStorage.getItem('level')
+      const token = localStorage.getItem('access_token')
+      if (token) {
+        if (level < 2) {
+          next()
+        } else {
+          next({ name: 'login' })
+        }
+      } else {
+        next({ name: 'login' })
+      }
+    },
     children: [
       {
         path: 'addProduct',

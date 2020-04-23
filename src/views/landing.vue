@@ -9,7 +9,9 @@
 export default {
   created: function () {
     if (localStorage.access_token) {
-      this.$router.push('/dashboard')
+      if (localStorage.level < 2) {
+        this.$router.push('/dashboard')
+      }
     }
   }
 }

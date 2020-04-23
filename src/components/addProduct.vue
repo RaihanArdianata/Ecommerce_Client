@@ -23,10 +23,10 @@
         <div class="form-group col-md-4">
           <label for="inputState">Category</label>
           <select id="inputState" class="form-control" v-model="formData.category" required>
-            <option value="kaos">kaos</option>
-            <option value="sepatu">sepatu</option>
-            <option value="jaket">jaket</option>
-            <option value="hoodie">hoodie</option>
+            <option value="cloat">Cloat</option>
+            <option value="pants">Pants</option>
+            <option value="shoes">Shoes</option>
+            <option value="accessories">Accessories</option>
           </select>
         </div>
       </div>

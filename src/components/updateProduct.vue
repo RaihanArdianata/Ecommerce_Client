@@ -23,10 +23,10 @@
         <div class="form-group col-md-4">
           <label for="inputState">Category</label>
           <select id="inputState" class="form-control" v-model="filterProduct.Category" required>
-            <option value="kaos">kaos</option>
-            <option value="sepatu">sepatu</option>
-            <option value="jaket">jaket</option>
-            <option value="hoodie">hoodie</option>
+            <option value="cloat">Cloat</option>
+            <option value="pants">Pants</option>
+            <option value="shoes">Shoes</option>
+            <option value="accessories">Accessories</option>
           </select>
         </div>
       </div>
@@ -103,8 +103,7 @@ export default {
   },
   created: function () {
     this.filterProduct = this.product.find((datum) => {
-      datum.id = this.id
-      return datum
+      return +datum.id === +this.id
     })
   },
   handleFileUpload: function () {

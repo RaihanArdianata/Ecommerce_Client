@@ -14,7 +14,6 @@ const store = new Vuex.Store({
   },
   mutations: {
     SET_PRODUCT: function (state, payload) {
-      console.log(payload)
       state.product = payload
     }
   },

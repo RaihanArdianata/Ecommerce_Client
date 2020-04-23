@@ -40,6 +40,7 @@ export default {
       })
         .then((result) => {
           localStorage.setItem('access_token', result.data.access_token)
+          localStorage.setItem('level', result.data.level)
           this.$router.push({ name: 'dashboard' })
         })
         .catch((err) => {
